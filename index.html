@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mantenimiento de Laptops</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* MATRIX */
+#matrix{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px;
+}
+
+/* LOGO */
+.logo{
+    text-align:center;
+    font-size:4rem;
+    font-weight:800;
+    margin-top:20px;
+    letter-spacing:4px;
+    color:#00f7ff;
+    text-shadow:0 0 20px rgba(0,247,255,.6);
+}
+
+.subtitle{
+    text-align:center;
+    color:#bbb;
+    margin-bottom:40px;
+}
+
+/* CARDS */
+.cards{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:320px;
+    background:rgba(0,0,0,.75);
+    border:1px solid rgba(0,255,255,.25);
+    border-radius:20px;
+    padding:25px;
+    backdrop-filter:blur(10px);
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(0,255,255,.3);
+}
+
+.card h2{
+    text-align:center;
+    color:#7defff;
+}
+
+.price{
+    text-align:center;
+    font-size:2rem;
+    color:#00ff99;
+    margin:15px 0;
+}
+
+/* LISTA */
+.card ul{
+    margin-top:10px;
+    padding-left:20px;
+    line-height:1.6;
+    color:#ddd;
+}
+
+/* BOTONES */
+.elegir-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(45deg,#00c3ff,#8f00ff);
+}
+
+/* FORM */
+.form-box{
+    max-width:700px;
+    margin:60px auto;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(0,0,0,.85);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.form-box h2{
+    text-align:center;
+    color:#ff7cff;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    background:#111;
+    color:white;
+}
+
+/* WHATSAPP */
+.whatsapp-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(45deg,#25D366,#128C7E);
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    margin:40px 0;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+
+<h1 class="logo">MicroTech</h1>
+<p class="subtitle">Servicio profesional de mantenimiento de laptops</p>
+
+<!-- PLANES -->
+<div class="cards">
+
+<div class="card">
+<h2>Sencillo</h2>
+<div class="price">Q100</div>
+<ul>
+<li>Limpieza interna y externa</li>
+<li>Cambio de pasta térmica</li>
+</ul>
+<button class="elegir-btn" onclick="seleccionar('Sencillo - Q100')">
+Elegir
+</button>
+</div>
+
+<div class="card">
+<h2>Normal</h2>
+<div class="price">Q150</div>
+<ul>
+<li>Cambio de pasta térmica</li>
+<li>Limpieza completa</li>
+<li>Optimización del sistema</li>
+</ul>
+<button class="elegir-btn" onclick="seleccionar('Normal - Q150')">
+Elegir
+</button>
+</div>
+
+<div class="card">
+<h2>Profundo</h2>
+<div class="price">Q300</div>
+<ul>
+<li>Cambio de pasta térmica</li>
+<li>Limpieza profunda completa</li>
+<li>Actualización de software</li>
+<li>Optimización avanzada</li>
+<li>Revisión a profundidad del equipo</li>
+</ul>
+<button class="elegir-btn" onclick="seleccionar('Profundo - Q300')">
+Elegir
+</button>
+</div>
+
+</div>
+
+<!-- FORM -->
+<div class="form-box">
+
+<h2>Solicitar Servicio</h2>
+
+<input type="text" id="nombre" placeholder="Nombre">
+<input type="tel" id="telefono" placeholder="Teléfono">
+<input type="email" id="correo" placeholder="Correo opcional">
+
+<select id="servicio">
+<option value="">Seleccione servicio</option>
+<option>Sencillo - Q100</option>
+<option>Normal - Q150</option>
+<option>Profundo - Q300</option>
+</select>
+
+<textarea id="detalles" placeholder="Detalles del problema"></textarea>
+
+<button class="whatsapp-btn" onclick="enviarWhatsApp()">
+Enviar por WhatsApp 📲
+</button>
+
+</div>
+
+<footer>© 2026 Servicio Técnico</footer>
+
+</div>
+
+<script>
+
+/* seleccionar plan */
+function seleccionar(valor){
+    document.getElementById("servicio").value = valor;
+    document.querySelector(".form-box")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+/* whatsapp */
+function enviarWhatsApp(){
+
+const nombre = document.getElementById("nombre").value;
+const telefono = document.getElementById("telefono").value;
+const correo = document.getElementById("correo").value;
+const servicio = document.getElementById("servicio").value;
+const detalles = document.getElementById("detalles").value;
+
+const mensaje =
+`🖥️ NUEVO PEDIDO
+
+👤 Nombre: ${nombre}
+📞 Teléfono: ${telefono}
+📧 Correo: ${correo}
+⚙️ Servicio: ${servicio}
+📝 Detalles: ${detalles}`;
+
+const url =
+`https://wa.me/50238736359?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url, "_blank");
+
+}
+
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const letras="01ABCDEF#$%&*+-=";
+const fontSize=16;
+const cols=canvas.width/fontSize;
+const drops=[];
+
+for(let i=0;i<cols;i++) drops[i]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ff66";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letras[Math.floor(Math.random()*letras.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}}
+
+setInterval(draw,35);
+</script>
+
+</body>
+</html>
